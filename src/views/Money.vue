@@ -1,10 +1,9 @@
 <template>
-	<diV class="nav-wrapper">
-		<div class="content">
-			Money.Vue
-		</div>
-		<Nav/>
-	</diV>
+	<div>
+		<Layout>
+			<p>你好</p>
+		</Layout>
+	</div>
 </template>
 
 <script lang="ts">
@@ -15,15 +14,5 @@
 </script>
 
 <style scoped lang="scss">
-	.nav-wrapper {
-		border: 1px solid red;
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-		overflow: auto;
-		}
-	
-	.content {
-		flex-grow: 1;
-		}
+
 </style>
