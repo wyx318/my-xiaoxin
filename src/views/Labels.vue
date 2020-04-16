@@ -1,10 +1,15 @@
 <template>
-	<div>Label.Vue</div>
+	<div>
+		Label.Vue
+		<Nav/>
+	</div>
 </template>
 
 <script lang="ts">
+
   export default {
-    name: 'Labels'
+    name: 'Labels',
+
   };
 </script>
 
