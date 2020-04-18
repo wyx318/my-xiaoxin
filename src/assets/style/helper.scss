@@ -4,3 +4,24 @@ $font-song: Georgia, "Nimbus Roman No9 L", "Songti SC", "Noto Serif CJK SC", "So
 $font-fang-song: Baskerville, "Times New Roman", "Liberation Serif", STFangsong, FangSong, FangSong_GB2312, "CWTEX\-F", serif;
 //高两色
 $color-highlihht: #f00;
+
+// placeholder
+%clearFix {
+	&::after {
+		content: '';
+		display: block;
+		clear: both;
+		}
+	}
+
+$color-shadow: rgba(0, 0, 0, 0.35);
+%outerShadow {
+	box-shadow: 0 0 3px $color-shadow;
+	}
+
+%innerShadow {
+	box-shadow: inset 0 -3px 3px -3px $color-shadow,
+	inset 0 3px 3px -3px $color-shadow; //内阴影
+	}
+
+

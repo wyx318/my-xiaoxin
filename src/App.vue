@@ -17,6 +17,7 @@
 		color: #333;
 		//使用font-css中文字库
 		font-family: $font-hei;
+		font-size: 16px;
 		line-height: 1.5;
 		}
 </style>

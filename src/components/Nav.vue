@@ -28,7 +28,7 @@
 	
 	nav {
 		display: flex;
-		box-shadow: 0 0 3px rgba(0, 0, 0, .35);
+		@extend %outerShadow;
 		flex-direction: row;
 		
 		> .item {

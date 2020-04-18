@@ -7,3 +7,16 @@ a {
 	text-decoration: none;
 	color: inherit; //颜色继承
 	}
+
+ul, ol {
+	list-style: none;
+	}
+
+button, input {
+	font: inherit;
+	}
+
+//获得焦点的元素任何边框为零
+:focus {
+	outline: none;
+	}
