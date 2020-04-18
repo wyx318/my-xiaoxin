@@ -12,26 +12,42 @@
 </template>
 
 <script lang="ts">
-  export default {
-    props: ['xxx'],
-    name: 'Types',
-    data() {
-      return {
-        type: '-' // '-'表示支出 '+'表示收入
-      };
-    },
-    mounted() {
-      console.log(this.xxx);
-    },
-    methods: {
-      selectType: function (type) { //type只能是减号或者加号
-        if (type !== '-' && type !== '+') {
-          throw new Error('type is unknown');
-        }
-        this.type = type;
+  // 用ts实现
+  import Vue from 'vue';
+  //第一步 先引入装饰器 从非官方组件中引入  名为Component 装饰器
+  import { Component } from 'vue-property-decorator';
+  //将装饰器修饰到 Types上  就可以 直接写 data  methods
+  @Component
+  export default class Types extends Vue {
+    type = '-';  // '-'表示支出 '+'表示收入
+    selectType(type: string) {
+      // type只能是减号或者加号
+      if (type !== '-' && type !== '+') {
+        throw new Error('type is unknown');
       }
+      this.type = type;
     }
-  };
+  }
+  // export default {
+  //   props: ['xxx'],
+  //   name: 'Types',
+  //   data() {
+  //     return {
+  //       type: '-' // '-'表示支出 '+'表示收入
+  //     };
+  //   },
+  //   mounted() {
+  //     console.log(this.xxx);
+  //   },
+  //   methods: {
+  //     selectType: function (type) { //type只能是减号或者加号
+  //       if (type !== '-' && type !== '+') {
+  //         throw new Error('type is unknown');
+  //       }
+  //       this.type = type;
+  //     }
+  //   }
+  // };
 </script>
 
 <style scoped lang="scss">
