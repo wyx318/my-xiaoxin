@@ -3,7 +3,7 @@
 		<Layout class-prefix="layout">
 			<!--			布局改为从下往上布局 采用组件化方式 提升代码 -->
 			<NumberPad/>
-			<Types xxx="hi"/>
+			<Types :xxx="333"/>
 			<Tags/>
 		</Layout>
 	</div>
