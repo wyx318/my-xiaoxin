@@ -52,6 +52,9 @@
 		}
 
 		remove() {
+			// if (this.output.slice(0, -1).indexOf('.') >= 0) {
+			// 	this.output = this.output.slice(0, -1);
+			// }
 			//逻辑 本来 this.output.length 就是为1  在怎么执行删除 直接就赋值为0 否则执行下一条逻辑
 			if (this.output.length === 1) {
 				this.output = '0';
