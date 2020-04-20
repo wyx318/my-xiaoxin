@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<ul class="types">
-			<li :class="type === '-' && 'selected' "
+			<li :class="value === '-' && 'selected' "
 					@click="selectType('-')">支出
 			</li>
-			<li :class="type === '+' && 'selected' "
+			<li :class="value === '+' && 'selected' "
 					@click="selectType('+')">收入
 			</li>
 		</ul>
@@ -15,33 +15,39 @@
 	// 用ts实现
 	import Vue from 'vue';
 	//第一步 先引入装饰器 从非官方组件中引入  名为Component 装饰器
-	import { Component } from 'vue-property-decorator';
+	import { Component, Prop } from 'vue-property-decorator';
 	//将装饰器修饰到 Types上  就可以 直接写 data  methods
 	@Component
 	export default class Types extends Vue {
-		type = '-';  // '-'表示支出 '+'表示收入
-
+		// type = '-';  // '-'表示支出 '+'表示收入
 		// @Prop(Number) xxx: number | undefined;
 		//Prop 告诉Vue xxx 不是data 是 prop
 		//Number 告诉Vue xxx 运行时 是个Number
 		// xxx 属性名
 		// number | undefined 告诉 TS xxx编译时的类型
+		@Prop() readonly value!: string;
+
 		selectType(type: string) {
 			// type只能是减号或者加号
 			if (type !== '-' && type !== '+') {
 				throw new Error('type is unknown');
 			}
-			this.type = type;
+			this.$emit('update:value', type);
 		}
-
-		// mounted() {
-		// 	if (this.xxx === undefined) {
-		// 		console.log('没有xxx');
-		// 	} else {
-		// 		console.log(this.xxx.toString());
-		// 	}
-		// }
 	}
+	//采用 Watch 变化的时候 才会触发事件
+	// @Watch('type')
+	// onTypeChange(value: string) {
+	// 	this.$emit('update:value', value);
+	// }
+
+	// mounted() {
+	// 	if (this.xxx === undefined) {
+	// 		console.log('没有xxx');
+	// 	} else {
+	// 		console.log(this.xxx.toString());
+	// 	}
+	// }
 	//JS 风格 vue组件
 	// export default {
 	//   props: ['xxx'],

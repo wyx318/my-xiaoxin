@@ -67,7 +67,11 @@
 			this.output = '0';
 		}
 
-		ok() {}
+//确认事件
+		ok() {
+			this.$emit('update:value', this.output);
+			this.$emit('submit', this.output);
+		}
 	}
 </script>
 

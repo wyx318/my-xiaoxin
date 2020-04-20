@@ -2,7 +2,7 @@
 	<div>
 		<div class="tags">
 			<div class="new">
-				<button>新增标签</button>
+				<button @click="create">新增标签</button>
 			</div>
 			<ul class="current">
 				<li v-for="tag in dataSource" :key="tag "
@@ -21,8 +21,8 @@
 
 	@Component
 	export default class Tags extends Vue {
-
-		@Prop() dataSource: string[] | undefined;
+		// readonly 只读数据
+		@Prop() readonly dataSource: string[] | undefined;
 		selectedTags: string[] = [];
 
 		toggle(tag: string) {
@@ -31,6 +31,18 @@
 				this.selectedTags.splice(index, 1);
 			} else {
 				this.selectedTags.push(tag);
+			}
+			this.$emit('update:value', this.selectedTags);
+		}
+
+		//新增标签
+		create() {
+			const name = window.prompt('请输入新增标签');
+			if (name === '') {
+				window.alert('标签名不能为空');
+			} else if (this.dataSource) {
+				//逻辑 当新增的数据不为空 就会把更新动作告诉外部  外部就会接受 update事件 触发。sync 事件 在Money.vue中 就会把数据数组 之前的数据 从而更新
+				this.$emit('update:dataSource', [...this.dataSource, name]);
 			}
 		}
 	}
