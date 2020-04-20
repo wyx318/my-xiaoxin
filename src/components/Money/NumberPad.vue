@@ -24,11 +24,12 @@
 	// 用ts实现
 	import Vue from 'vue';
 	//第一步 先引入装饰器 从非官方组件中引入  名为Component 装饰器
-	import { Component } from 'vue-property-decorator';
+	import { Component, Prop } from 'vue-property-decorator';
 	//将装饰器修饰到 Types上  就可以 直接写 data  methods
 	@Component
 	export default class NumberPad extends Vue {
-		output: string = '0';
+		@Prop() readonly value!: number;
+		output = this.value.toString();
 
 		inputContent(event: MouseEvent) {
 			const button = (event.target as HTMLButtonElement);
@@ -71,6 +72,8 @@
 		ok() {
 			this.$emit('update:value', this.output);
 			this.$emit('submit', this.output);
+			//提交完成数据 开始清空
+			this.output = '0';
 		}
 	}
 </script>
