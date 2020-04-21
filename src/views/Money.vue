@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<Layout class-prefix="layout">
-			{{recordList}}
 			<!--			布局改为从下往上 布局 采用组件化方式 提升代码 -->
 			<NumberPad :value.sync="record.amount" @submit="saveRecord"/>
 			<!--	可以改成修饰符 .sync		@update:value="onUpdateType"-->
@@ -19,25 +18,22 @@
 	import Tags from '@/components/Money/Tags.vue';
 	import Notes from '@/components/Money/Notes.vue';
 	import { Component, Watch } from 'vue-property-decorator';
+	import model from '@/model';
+	//引入 优化代码 MVC
+	// const model = require('@/model.js').model;
 	//后台数据库版本
 	// window.localStorage.setItem('version', '0.0.1');
-
+	const recordList = model.fetch();
 	//ts 中类型声明
-	type Record = {
-		tags: string[]
-		notes: string
-		type: string
-		amount: number  //数据类型  object  | string
-		createAT?: Date // 类  / 构造函数 ?
-	}
+
 	@Component({
 		components: { Notes, Tags, Types, NumberPad }
 	})
 	export default class Money extends Vue {
 		tags = ['衣', '食', '住', '行', '逛街', '彩票'];
 		//保存用户传递过来的OK 的数据 后台读取浏览器存储的数据
-		recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
-		record: Record = {
+		recordList: RecordItem[] = recordList;
+		record: RecordItem = {
 			tags: [], notes: '', type: '-', amount: 0
 		};
 
@@ -66,7 +62,7 @@
 
 		// 点击OK的时候 收集数据  并保存起来
 		saveRecord() {
-			const record2: Record = JSON.parse(JSON.stringify(this.record));
+			const record2: RecordItem = model.clone(this.record);
 			record2.createAT = new Date();
 			this.recordList.push(record2);
 			// console.log(this.recordList);
@@ -76,7 +72,7 @@
 		//动态监听数据
 		@Watch('recordList')
 		onRecordListChange() {
-			window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+			model.save(this.recordList);
 		}
 	}
 </script>
