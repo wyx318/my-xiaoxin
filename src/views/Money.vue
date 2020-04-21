@@ -18,19 +18,21 @@
 	import Tags from '@/components/Money/Tags.vue';
 	import Notes from '@/components/Money/Notes.vue';
 	import { Component, Watch } from 'vue-property-decorator';
-	import model from '@/model';
+	import recordListModel from '@/models/recordListModel';
+	import tagListModel from '@/models/tagListModel';
 	//引入 优化代码 MVC
 	// const model = require('@/model.js').model;
 	//后台数据库版本
 	// window.localStorage.setItem('version', '0.0.1');
-	const recordList = model.fetch();
+	const recordList = recordListModel.fetch();
+	const tagList = tagListModel.fetch();
 	//ts 中类型声明
 
 	@Component({
 		components: { Notes, Tags, Types, NumberPad }
 	})
 	export default class Money extends Vue {
-		tags = ['衣', '食', '住', '行', '逛街', '彩票'];
+		tags = tagList;
 		//保存用户传递过来的OK 的数据 后台读取浏览器存储的数据
 		recordList: RecordItem[] = recordList;
 		record: RecordItem = {
@@ -62,7 +64,7 @@
 
 		// 点击OK的时候 收集数据  并保存起来
 		saveRecord() {
-			const record2: RecordItem = model.clone(this.record);
+			const record2: RecordItem = recordListModel.clone(this.record);
 			record2.createAT = new Date();
 			this.recordList.push(record2);
 			// console.log(this.recordList);
@@ -72,7 +74,7 @@
 		//动态监听数据
 		@Watch('recordList')
 		onRecordListChange() {
-			model.save(this.recordList);
+			recordListModel.save(this.recordList);
 		}
 	}
 </script>
