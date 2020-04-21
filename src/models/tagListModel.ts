@@ -8,7 +8,7 @@ type Tag = {
 type TagListModel = {
 	data: Tag[]
 	fetch: () => Tag[] //是一个函数 返回的是字符串数组
-	create: (name: string) => 'success' | 'duplicated' // 联合类型// success 成功 duplicated 表示 重复
+	create: (name : string) => 'success' | 'duplicated' // 联合类型// success 成功 duplicated 表示 重复
 	save: () => void //不返回
 }
 const tagListModel: TagListModel = {
