@@ -1,4 +1,4 @@
-//MVC 模式 优化代码
+//MVC 模式 优化代码 数据处理中心
 const localStorageKeyName = 'tagList';
 type Tag = {
 	id: string;
@@ -8,7 +8,9 @@ type Tag = {
 type TagListModel = {
 	data: Tag[]
 	fetch: () => Tag[] //是一个函数 返回的是字符串数组
-	create: (name : string) => 'success' | 'duplicated' // 联合类型// success 成功 duplicated 表示 重复
+	create: (name: string) => 'success' | 'duplicated' // 联合类型// success 成功 duplicated 表示 重复
+	update: (id: string, name: string) => 'success' | 'not Found' | 'duplicated'
+	remove: (id: string) => boolean
 	save: () => void //不返回
 }
 const tagListModel: TagListModel = {
@@ -25,6 +27,37 @@ const tagListModel: TagListModel = {
 		this.data.push({ id: name, name: name });
 		this.save();
 		return 'success';
+	},
+	//收集 EditLabel组件的 id 更新ID
+	update(id, name) {
+		const idList = this.data.map(item => item.id);
+		if (idList.indexOf(id) >= 0) {
+			const names = this.data.map(item => item.name);
+			if (names.indexOf(name) >= 0) {
+				return 'duplicated';
+			} else {
+				const tag = this.data.filter(item => item.id === id)[0];
+				tag.name = name;
+				tag.id = name;
+				this.save();
+				return 'success';
+			}
+		} else {
+			return 'not Found';
+		}
+	},
+	//删除数据
+	remove(id: string) {
+		let index = -1;
+		for (let i = 0; i < this.data.length; i++) {
+			if (this.data[i].id === id) {
+				index = i;
+				break;
+			}
+		}
+		this.data.splice(index, 1);
+		this.save();
+		return true;
 	},
 //  保存数据
 	save() {
