@@ -5,7 +5,9 @@
 			<NumberPad :value.sync="record.amount" @submit="saveRecord"/>
 			<!--	可以改成修饰符 .sync		@update:value="onUpdateType"-->
 			<Types :value.sync='record.type'/>
-			<Notes @update:value="onUpdateNotes"/>
+			<Notes field-name="备注"
+						 placeholder="在这里输入备注"
+						 @update:value="onUpdateNotes"/>
 			<Tags :data-source.sync=" tags" @update:value="onUpdateTags"/>
 		</Layout>
 	</div>
