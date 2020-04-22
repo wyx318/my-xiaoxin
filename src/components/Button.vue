@@ -1,6 +1,6 @@
 <template>
-	<!--	思路 当点击小button 的时候 就会触发 打的button事件 也可也不写 用@click.native 代替-->
-	<button class="button" @click="$emit('click',$event)">
+	<!--	思路 当点击小button -->
+	<button class="button" @click="$emit('click', $event)">
 		<slot/>
 	</button>
 </template>

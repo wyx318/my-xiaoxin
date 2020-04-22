@@ -1,4 +1,6 @@
 //MVC 模式 优化代码 数据处理中心
+import createId from '@/lib/createId';
+
 const localStorageKeyName = 'tagList';
 type Tag = {
 	id: string;
@@ -22,9 +24,12 @@ const tagListModel: TagListModel = {
 	},
 //收集用户输入的数据
 	create(name) {
+
 		const names = this.data.map(item => item.name);
 		if (names.indexOf(name) >= 0) {return 'duplicated';}
-		this.data.push({ id: name, name: name });
+		// @ts-ignore
+		const id = createId().toString();
+		this.data.push({ id, name: name });
 		this.save();
 		return 'success';
 	},
@@ -38,7 +43,7 @@ const tagListModel: TagListModel = {
 			} else {
 				const tag = this.data.filter(item => item.id === id)[0];
 				tag.name = name;
-				tag.id = name;
+				tag.id = id;
 				this.save();
 				return 'success';
 			}
@@ -53,6 +58,8 @@ const tagListModel: TagListModel = {
 			if (this.data[i].id === id) {
 				index = i;
 				break;
+			} else {
+				window.alert('删除失败');
 			}
 		}
 		this.data.splice(index, 1);
