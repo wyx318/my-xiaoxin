@@ -6,7 +6,7 @@
 			<span class="rightIcon"></span>
 		</div>
 		<div class="from-wrapper">
-			<FromItem placeholder="请输入标签名" field-name="标签名"/>
+			<FromItem :value="tag.name" placeholder="请输入标签名" field-name="标签名"/>
 		</div>
 		<div class="button-wrapper">
 			<Button> 删除标签</Button>
@@ -25,13 +25,15 @@
 		components: { Button, FromItem }
 	})
 	export default class EditLabel extends Vue {
+		tag?: { id: string, name: string } = undefined;
+
 		created() {
 			const id = this.$route.params.id;
 			tagListModel.fetch();
 			const tags = tagListModel.fetch();
 			const tag = tags.filter(t => t.id === id)[0];
 			if (tag) {
-				console.log(tag);
+				this.tag = tag;
 			} else {
 				//不存在就重新定向 和$route的区别是 $route获取路由信息 $router 路由器
 				this.$router.replace('/404');
@@ -62,7 +64,7 @@
 			}
 		
 		> .title {
-			border: 1px solid red;
+			
 			}
 		}
 	
