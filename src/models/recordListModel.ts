@@ -10,6 +10,7 @@ const recordListModel = {
 		const record2: RecordItem = clone(record);
 		record2.createAT = new Date();
 		this.data.push(record2);
+		this.save();
 	},
 //  获取数据
 	fetch() {

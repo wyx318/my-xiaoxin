@@ -21,13 +21,12 @@
 	import Types from '@/components/Money/Types.vue';
 	import Tags from '@/components/Money/Tags.vue';
 	import FromItem from '@/components/Money/FromItem.vue';
-	import { Component, Watch } from 'vue-property-decorator';
-	import recordListModel from '@/models/recordListModel';
+	import { Component } from 'vue-property-decorator';
 	//引入 优化代码 MVC
 	// const model = require('@/model.js').model;
 	//后台数据库版本
 	// window.localStorage.setItem('version', '0.0.1');
-	const recordList = recordListModel.fetch();
+	// const recordList = recordListModel.fetch();
 	//ts 中类型声明
 
 	@Component({
@@ -36,7 +35,7 @@
 	export default class Money extends Vue {
 		tags = window.tagList;
 		//保存用户传递过来的OK 的数据 后台读取浏览器存储的数据
-		recordList: RecordItem[] = recordList;
+		recordList = window.recordList;
 		record: RecordItem = {
 			tags: [], notes: '', type: '-', amount: 0
 		};
@@ -66,15 +65,8 @@
 
 		// 点击OK的时候 收集数据  并保存起来
 		saveRecord() {
-			recordListModel.create(this.record);
+			window.createRecord(this.record);
 			// console.log(this.recordList);
-
-		}
-
-		//动态监听数据
-		@Watch('recordList')
-		onRecordListChange() {
-			recordListModel.save();
 		}
 	}
 </script>
