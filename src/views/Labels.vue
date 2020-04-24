@@ -34,12 +34,7 @@
 		createTag() {
 			const name = window.prompt('请输入内容');
 			if (name) {
-				const message = tagListModel.create(name);
-				if (message === 'duplicated') {
-					window.alert('重复输入 ');
-				} else if (message === 'success') {
-					window.alert('添加成功 ');
-				}
+				window.createTag(name);
 			}
 		}
 	}
