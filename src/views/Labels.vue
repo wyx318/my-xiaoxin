@@ -23,12 +23,12 @@
 	import tagListModel from '@/models/tagListModel';
 	import Button from '@/components/Button.vue';
 
-	tagListModel.fetch();
 	@Component({
 		components: { Button }
 	})
 	export default class Labels extends Vue {
-		tags = tagListModel.data;
+		//已经放到全局数据中心了
+		tags = window.tagList;
 
 //用户输入函数
 		createTag() {

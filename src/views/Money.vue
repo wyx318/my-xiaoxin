@@ -29,14 +29,13 @@
 	//后台数据库版本
 	// window.localStorage.setItem('version', '0.0.1');
 	const recordList = recordListModel.fetch();
-	const tagList = tagListModel.fetch();
 	//ts 中类型声明
 
 	@Component({
 		components: { FromItem, Tags, Types, NumberPad }
 	})
 	export default class Money extends Vue {
-		tags = tagList;
+		tags = window.tagList;
 		//保存用户传递过来的OK 的数据 后台读取浏览器存储的数据
 		recordList: RecordItem[] = recordList;
 		record: RecordItem = {
