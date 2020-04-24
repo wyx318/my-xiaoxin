@@ -68,9 +68,7 @@
 
 		// 点击OK的时候 收集数据  并保存起来
 		saveRecord() {
-			const record2: RecordItem = recordListModel.clone(this.record);
-			record2.createAT = new Date();
-			this.recordList.push(record2);
+			recordListModel.create(this.record);
 			// console.log(this.recordList);
 
 		}
@@ -78,7 +76,7 @@
 		//动态监听数据
 		@Watch('recordList')
 		onRecordListChange() {
-			recordListModel.save(this.recordList);
+			recordListModel.save();
 		}
 	}
 </script>
