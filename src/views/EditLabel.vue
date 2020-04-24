@@ -19,7 +19,6 @@
 <script lang="ts">
 	import Vue from 'vue';
 	import { Component } from 'vue-property-decorator';
-	import tagListModel from '@/models/tagListModel';
 	import FromItem from '@/components/Money/FromItem.vue';
 	import Button from '@/components/Button.vue';
 
@@ -27,31 +26,28 @@
 		components: { Button, FromItem }
 	})
 	export default class EditLabel extends Vue {
-		tag?: { id: string, name: string } = undefined;
+		tag?: Tag = undefined;
 
 		created() {
-			const id = this.$route.params.id;
-			tagListModel.fetch();
-			const tags = tagListModel.fetch();
-			const tag = tags.filter(t => t.id === id)[0];
-			if (tag) {
-				this.tag = tag;
-			} else {
-				//不存在就重新定向 和$route的区别是 $route获取路由信息 $router 路由器
+			this.tag = window.findTag(this.$route.params.id);
+			if (!this.tag) {
+				//不存在就重新定向 和$route的区别是 $route获取路由信 息 $router 路由器
 				this.$router.replace('/404');
 			}
 		}
 
 		update(name: string) {
 			if (this.tag) {
-				tagListModel.update(this.tag.id, name);
+				window.updateTag(this.tag.id, name);
 			}
 		}
 
 		remove() {
 			if (this.tag) {
-				if (tagListModel.remove(this.tag.id)) {
+				if (window.removeTag(this.tag.id)) {
 					this.$router.back();
+				} else {
+					window.alert('删除失败');
 				}
 			}
 		}

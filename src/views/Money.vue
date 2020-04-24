@@ -23,7 +23,6 @@
 	import FromItem from '@/components/Money/FromItem.vue';
 	import { Component, Watch } from 'vue-property-decorator';
 	import recordListModel from '@/models/recordListModel';
-	import tagListModel from '@/models/tagListModel';
 	//引入 优化代码 MVC
 	// const model = require('@/model.js').model;
 	//后台数据库版本
