@@ -8,13 +8,15 @@ import Layout from '@/components/Layout.vue';
 import Icon from '@/components/Icon.vue';
 
 Vue.config.productionTip = false;
+
 Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
-//解决全局变量太多
 
+// @ts-ignore
+// @ts-ignore
 new Vue({
-	router,
 	store,
+	router: router,
 	render: h => h(App)
 }).$mount('#app');

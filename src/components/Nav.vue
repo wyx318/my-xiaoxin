@@ -17,29 +17,27 @@
 
 <script lang="ts">
 
-
-  export default {
-    name: 'Nav'
-  };
+	export default {
+		name: 'Nav'
+	};
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 	@import "~@/assets/style/helper.scss";
 	
 	nav {
-		display: flex;
 		@extend %outerShadow;
+		display: flex;
 		flex-direction: row;
+		font-size: 12px;
 		
 		> .item {
 			padding: 2px 0;
-			width: 33.3333%;
-			/*flex: 1; 效果上面的一样*/
+			width: 33.33333%;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			flex-direction: column;
-			font-size: 12px;
 			
 			.icon {
 				width: 32px;
@@ -48,9 +46,7 @@
 			}
 		
 		> .item.selected {
-			color: $color-highlihht;
+			color: $color-highlight;
 			}
 		}
-
-
 </style>

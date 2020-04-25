@@ -1,28 +1,26 @@
 <template>
-	<div>
-		<div class="tags">
-			<div class="new">
-				<button @click="create">新增标签</button>
-			</div>
-			<ul class="current">
-				<li v-for="tag in dataSource" :key="tag.id"
-						:class="{selected:selectedTags.indexOf(tag) >= 0 } "
-						@click="toggle(tag)">{{tag.name}}
-				</li>
-			</ul>
+	<div class="tags">
+		<div class="new">
+			<button @click="create">新增标签</button>
 		</div>
-	
+		<ul class="current">
+			<li v-for="tag in tagList" :key="tag.id"
+					:class="{selected: selectedTags.indexOf(tag)>=0}"
+					@click="toggle(tag)">{{tag.name}}
+			</li>
+		</ul>
 	</div>
+
 </template>
 
 <script lang="ts">
 	import Vue from 'vue';
 	import { Component, Prop } from 'vue-property-decorator';
+	import store from '@/store/index2';
 
 	@Component
 	export default class Tags extends Vue {
-		// readonly 只读数据
-		@Prop() readonly dataSource: string[] | undefined;
+		tagList = store.fetchTags();
 		selectedTags: string[] = [];
 
 		toggle(tag: string) {
@@ -35,25 +33,20 @@
 			this.$emit('update:value', this.selectedTags);
 		}
 
-		//新增标签
 		create() {
-			const name = window.prompt('请输入新增标签');
-			if (name === '') {
-				window.alert('标签名不能为空');
-			} else if (this.dataSource) {
-				//逻辑 当新增的数据不为空 就会把更新动作告诉外部  外部就会接受 update事件 触发。sync 事件 在Money.vue中 就会把数据数组 之前的数据 从而更新
-				this.$emit('update:dataSource', [...this.dataSource, name]);
-			}
+			const name = window.prompt('请输入标签名');
+			if (!name) { return window.alert('标签名不能为空'); }
+			store.createTag(name);
 		}
 	}
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 	.tags {
 		background: white;
-		flex-grow: 1;
 		font-size: 14px;
 		padding: 16px;
+		flex-grow: 1;
 		display: flex;
 		flex-direction: column-reverse;
 		
@@ -73,8 +66,8 @@
 				margin-top: 4px;
 				
 				&.selected {
-					background: darken($bg, 25%);
-					color: #fff;
+					background: darken($bg, 50%);
+					color: white;
 					}
 				}
 			}
@@ -83,12 +76,13 @@
 			padding-top: 16px;
 			
 			button {
-				background: transparent; //透明色
+				background: transparent;
 				border: none;
-				border-bottom: 1px solid;
 				color: #999;
-				padding: 0 3px;
+				border-bottom: 1px solid;
+				padding: 0 4px;
 				}
 			}
 		}
+
 </style>
