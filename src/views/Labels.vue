@@ -20,21 +20,21 @@
 
 	import Vue from 'vue';
 	import { Component } from 'vue-property-decorator';
-	import tagListModel from '@/models/tagListModel';
 	import Button from '@/components/Button.vue';
+	import store from '@/store/index2';
 
 	@Component({
 		components: { Button }
 	})
 	export default class Labels extends Vue {
 		//已经放到全局数据中心了
-		tags = window.tagList;
+		tags =  store.tagList;
 
 //用户输入函数
 		createTag() {
 			const name = window.prompt('请输入内容');
 			if (name) {
-				window.createTag(name);
+				store.createTag(name);
 			}
 		}
 	}

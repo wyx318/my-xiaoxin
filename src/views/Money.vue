@@ -22,6 +22,7 @@
 	import Tags from '@/components/Money/Tags.vue';
 	import FromItem from '@/components/Money/FromItem.vue';
 	import { Component } from 'vue-property-decorator';
+	import store from '@/store/index2';
 	//引入 优化代码 MVC
 	// const model = require('@/model.js').model;
 	//后台数据库版本
@@ -33,9 +34,9 @@
 		components: { FromItem, Tags, Types, NumberPad }
 	})
 	export default class Money extends Vue {
-		tags = window.tagList;
+		tags = store.tagList;
 		//保存用户传递过来的OK 的数据 后台读取浏览器存储的数据
-		recordList = window.recordList;
+		recordList = store.recordList;
 		record: RecordItem = {
 			tags: [], notes: '', type: '-', amount: 0
 		};
@@ -65,7 +66,7 @@
 
 		// 点击OK的时候 收集数据  并保存起来
 		saveRecord() {
-			window.createRecord(this.record);
+			store.createRecord(this.record);
 			// console.log(this.recordList);
 		}
 	}
